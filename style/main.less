@@ -1,0 +1,167 @@
+@charset "utf-8";
+body{
+  background: #ffdafe;
+}
+/*===================================变量=============================*/
+//变量，使用@开头，例如@aaa：bbb
+@title_width:100px;
+@title_height:100px;
+@bgyellow:yellow;
+.box{
+  width: @title_width;
+  height:@title_height;
+  background: @bgyellow;
+}
+/*===================================变量=============================*/
+
+/*===================================混合使用=============================*/
+//混合使用
+.border{
+  border:3px solid #ccc;
+}
+.box{
+  width: @title_width;
+  height:@title_height;
+  background: @bgyellow;
+  .border;
+}
+.box2{
+  .box;
+  margin-left:100px;
+}
+
+//混合使用---带参数
+.border_02(@border_width){
+  border:@border_width solid #eee;
+}
+//调用--必须给值
+.test{
+  .border_02(10px);
+}
+//混合使用---带默认值
+.border_03(@border_width:10px){
+  border:@border_width solid #eee;
+}
+//调用--必须给值
+.test{
+  .border_02(10px);
+  .border_03(30px);
+}
+
+.border_radius(@border_radius:5px){
+  -webkit-border-radius:@border_radius;
+  -moz-border-radius:@border_radius;
+  border-radius:@border_radius;
+}
+.borderDiv{
+  width:10px;
+  height:10px;
+  background: aliceblue;
+  .border_radius();
+}
+/*===================================混合使用=============================*/
+
+/*===================================匹配模式=============================*/
+//匹配模式---三角
+//.sanjiao{
+// width:0;
+//  height:0;
+// overflow:hidden;
+// border-width:5px;
+// border-style: dashed solid dashed dashed;//上右下左，dashed是为了兼容IE6
+//  border-color: transparent red transparent transparent;
+//}
+.triangle(top,@br_width:5px,@br_color:#f60){
+  border-width:@br_width;
+  border-color: transparent transparent @br_color transparent;
+  border-style: dashed dashed solid dashed;
+}
+.triangle(bottom,@br_width:5px,@br_color:#f60){
+  border-width:@br_width;
+  border-color: @br_color transparent transparent transparent;
+  border-style: solid dashed dashed dashed;
+}
+.triangle(left,@br_width:5px,@br_color:#f60){
+  border-width:@br_width;
+  border-color: transparent @br_color transparent transparent;
+  border-style: dashed solid dashed dashed;
+}
+.triangle(right,@br_width:5px,@br_color:#f60){
+  border-width:@br_width;
+  border-color: transparent transparent transparent @br_color;
+  border-style: dashed dashed dashed solid;
+}
+.triangle(@_,@br_width:5px,@br_color:#f60){
+  width:0;
+  height:0;
+  overflow: hidden;
+}
+.sanjiaoTop{
+  .triangle(top);
+}
+.sanjiaoRight{
+  .triangle(right);
+}
+.sanjiaoBottom{
+  .triangle(bottom);
+}
+.sanjiaoLeft{
+   .triangle(left);
+ }
+//匹配模式---定位
+.position(r){
+  position: relative;
+}
+.position(a){
+  position: absolute;
+}
+.position(f){
+  position: fixed;
+}
+.positionDemo{
+  width:10px;
+  height:10px;
+  background:green;
+}
+/*===================================匹配模式=============================*/
+
+
+/*===================================运算,是针对变量的,加减乘除=============================*/
+@ys_Width:300px;
+.div{
+  width: @ys_Width+20;
+}
+.div{
+  height: @ys_Width*20;
+}
+/*===================================运算,是针对变量的,加减乘除=============================*/
+
+
+
+/*===================================嵌套循环=============================*/
+//ul{}
+//ul li{}
+//ul li a{}
+//ul li a em{}
+.list{
+  margin:10px auto;
+  padding:0;
+  list-style:none;
+  width: 650px;
+  li{
+    margin-bottom:10px;
+    background: pink;
+    height:40px;
+    //这里的&指的是li
+    &:hover{
+      color:red;
+    }
+  }
+  a{
+    float:left;
+  }
+  span{
+    float: right;
+  }
+}
+/*===================================嵌套循环=============================*/
